@@ -14,11 +14,15 @@ public class Controller {
                 reserve.reserveSeat(new Date(), id + ""); // manggil method di reservation
 
                 tiket.getPayment().setPaymentGateway(typePayment);
+                // System.out.println(tiket.getPayment().getPaymentGateway());
                 tiket.getPayment().setTrancasctionID(id + ""); 
+                // System.out.println(tiket.getPayment().getTrancasctionID());
                 tiket.setStatus(TicketStatus_Enum.PAID);
-
+                // System.out.println(tiket.getStatus());
+                
                 // tidak cek status payment apa karena payment dapat berlangsung dalam 3 payment
                 tiket.setTotalPendapatan(+tiket.getPrice()); //nimpa??
+                // System.out.println(tiket.getTotalPendapatan());
             }
             break;
         }
@@ -30,9 +34,7 @@ public class Controller {
 
         for (Passenger pass : Dummy.passenger) {
             if (pass.getTiket().getStatus() == TicketStatus_Enum.PAID) {
-                for (Ticket tiket : Dummy.tiket) {
-                    totalPendapatan += tiket.getPrice();
-                }
+                totalPendapatan += pass.getTiket().getPrice();
             }
             break;
         }
@@ -61,8 +63,9 @@ public class Controller {
     public static void getInfoReservation(String userID){
         for (Passenger pass : Dummy.passenger) {
             if (pass.getPassangerID().equalsIgnoreCase(userID)) {
-                pass.getTiket().getReservation().getReservationID();
-                pass.getTiket().getReservation().getReservationDate();
+                Reservation reservation = pass.getTiket().getReservation();
+                System.out.println("Reservation ID " + reservation.getReservationID());
+                System.out.println("Reservation Date " + reservation.getReservationDate());
             }
             break;
         }
